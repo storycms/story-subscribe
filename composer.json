@@ -1,0 +1,28 @@
+{
+  "name": "storycms/subscribe",
+  "require": {
+    "php": ">=5.6.3",
+    "laravel/framework": "5.4.*",
+    "drewm/mailchimp-api": "^2.2",
+    "storycms/core": "dev-master"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "PT Froyo Kreatif Indonesia",
+      "email": "hello@froyo.co.id"
+    },
+    {
+      "name": "Aviant",
+      "email": "aviant@froyo.co.id"
+    }
+  ],
+  "require-dev": {
+
+  },
+  "autoload": {
+    "psr-4": {
+        "Story\\Subscribe\\": "src"
+    }
+  }
+}
