@@ -27,7 +27,7 @@ class StorySubscribeServiceProvider extends ServiceProvider
     public function register()
     {
         Route::group([
-            'namespace' => '\\Story\\Subscribe\\Http',
+            'namespace' => __NAMESPACE__.'\\Http',
             'middleware' => 'web'
         ], function() {
             Route::post(config()->get('subscribe.route_subscribe'), 'SubscribeController@index');
