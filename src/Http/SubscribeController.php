@@ -15,17 +15,21 @@ class SubscribeController extends CoreController
         if (!$email) {
             session()->flash('message', 'Please enter your email address');
         } else {
-            $api_key = config('subscribeconfig.api_key');
-            $list_id = config('subscribeconfig.subscribe_id');
+            $api_key = config()->get('subscribe.api_key');
+            $list_id = config()->get('subscribe.subscribe_id');
 
             $subscribed = new MailChimp($api_key);
-
-            $MailChimp->post("lists/".$list_id."/members", [
+            $subscribed->verify_ssl = false;
+            $subscribed->post("lists/".$list_id."/members", [
                 'email_address' => $email,
                 'status'        => 'subscribed',
             ]);
 
-            session()->flash('info', 'Thank you for Subscribing!');
+            if ($subscribed->success()) {
+               session()->flash('info', 'Thank you for Subscribing!');
+            } else {
+                session()->flash('info', 'Something went wrong. Please try again');
+            }
         }
 
         return redirect()->back();

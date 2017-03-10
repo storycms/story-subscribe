@@ -14,7 +14,7 @@ class StorySubscribeServiceProvider extends ServiceProvider
         // $this->publishes([__DIR__.'/../config/subs.php' => config_path('subs.php'),
         //     ]);
         
-        $this->mergeConfigFrom(__DIR__.'/../config/subs.php', 'subscribe');
+        $this->mergeConfigFrom(__DIR__.'/../config/subscribe.php', 'subscribe');
         $this->loadViewsFrom(__DIR__.'/../views/', 'subscribe');
     }
 
