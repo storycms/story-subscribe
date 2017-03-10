@@ -4,6 +4,7 @@ namespace Story\Subscribe;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\AliasLoader;
 
 class StorySubscribeServiceProvider extends ServiceProvider
 {
@@ -11,11 +12,16 @@ class StorySubscribeServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        // $this->publishes([__DIR__.'/../config/subs.php' => config_path('subs.php'),
-        //     ]);
-        
+        $loader = AliasLoader::getInstance();
+
         $this->mergeConfigFrom(__DIR__.'/../config/subscribe.php', 'subscribe');
         $this->loadViewsFrom(__DIR__.'/../views/', 'subscribe');
+
+        $this->app->singleton('subscribe', function(){
+            return new Subscribe;
+        });
+
+        $loader->alias('Subscribe', Facades\SubscribeFacade::class);
     }
 
     public function register()
@@ -24,7 +30,7 @@ class StorySubscribeServiceProvider extends ServiceProvider
             'namespace' => '\\Story\\Subscribe\\Http',
             'middleware' => 'web'
         ], function() {
-            Route::post('/subscribe', 'SubscribeController@index');
+            Route::post(config()->get('subscribe.route_subscribe'), 'SubscribeController@index');
         });
     }
 }
