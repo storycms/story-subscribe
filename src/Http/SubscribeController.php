@@ -8,7 +8,7 @@ use \DrewM\MailChimp\MailChimp;
 
 class SubscribeController extends CoreController
 {
-	public function index(SubscribeRequest $request)
+    public function index(SubscribeRequest $request)
     {
         $email = $request->input('email');
 
