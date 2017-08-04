@@ -26,8 +26,14 @@ class SubscribeController extends CoreController
             ]);
 
             if ($subscribed->success()) {
-               session()->flash('info', 'Thank you for Subscribing!');
+                if ($request->ajax()) {
+                    return response()->json(['info' => 'Thank you for Subscribing!']);
+                }
+                session()->flash('info', 'Thank you for Subscribing!');
             } else {
+                if ($request->ajax()) {
+                    return response()->json(['info' => 'Something went wrong. Please try again'], 401);
+                }
                 session()->flash('info', 'Something went wrong. Please try again');
             }
         }
